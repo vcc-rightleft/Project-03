@@ -622,7 +622,7 @@ void deleteBook(Book book[],  int *n){
 		(*n)--;
 		printf("Da xoa sach thanh cong!!!\n");
 	}else{
-		("Xoa sach khong thanh cong!!!\n");
+		printf("Xoa sach khong thanh cong!!!\n");
 	}
 	}
 }
