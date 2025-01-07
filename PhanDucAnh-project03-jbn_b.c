@@ -312,41 +312,41 @@ void addclient(Client client[], int*m){
 	getchar();
 	client[*m].id=*m+1;
 	while(1){
-	printf("Moi nhap vao ten khach hang: \n");
+	printf("Please enter customer name: \n");
 	fgets(client[*m].clientname,100,stdin);
 	client[*m].clientname[strcspn(client[*m].clientname, "\n")]='\0';
 	if (strlen(client[*m].clientname)==0){
-		printf("Ten khach hang khong duoc bo trong!!!\n");
+		printf("Customer name cannot be left blank!!!\n");
 		continue;
 	}	
 	break;
 }
 	while(1){
-	printf("Moi nhap vao so dien thoai khach hang: \n");
+	printf("Please enter customer phone number: \n");
 	fgets(client[*m].phonenumber,50,stdin);
 	client[*m].phonenumber[strcspn(client[*m].phonenumber,"\n")]='\0';
 	if(strlen(client[*m].phonenumber)==0){
-		printf("So dien thoai cua khach hang khong duoc bo trong!!!\n");
+		printf("Phone number cannot be left blank!!!\n");
 		continue;
 	}
 	break;
 }
 	while(1){
-	printf("Moi nhap vao ngay muon sach: \n");
+	printf("Please enter the date you borrowed the book: \n");
 	fgets(client[*m].date,50,stdin);
 	client[*m].date[strcspn(client[*m].date,"\n")]='\0';
 	if(strlen(client[*m].date)==0){
-		printf("Ngay muon sach khong duoc bo trong!!!\n");
+		printf("The date of borrowing the book cannot be left blank!!!\n");
 		continue;
 	}
 	break;
 }
 	(*m)++;
-	printf("Them khach hang thanh cong!!!\n");
+	printf("Add customer successfully!!!\n");
 }
 void printfclient(Client client[], int m){
 	printf("\n_______________________________________________________________________________________________\n");
-    printf("| %-2s | %-40s | %-20s | %-20s |\n", "ID", "Ten khach hang", "So dien thoai", "Ngay muon sach");
+    printf("| %-2s | %-40s | %-20s | %-20s |\n", "ID", "Customer ame", "Phone Number", "Book loan date");
     printf("|____|__________________________________________|______________________|______________________|\n");
     for (int i = 0; i < m; i++) {
         printf("| %-2d | %-40s | %-20s | %-20s |\n", client[i].id, client[i].clientname, client[i].phonenumber, client[i].date);
@@ -354,7 +354,7 @@ void printfclient(Client client[], int m){
 }
 void updateClient(Client client[], int m) {
     int id;
-    printf("Nhap id khach hang muon cap nhat: ");
+    printf("Enter the customer id you want to edit: ");
     scanf("%d", &id);
     getchar();
 
@@ -362,8 +362,8 @@ void updateClient(Client client[], int m) {
     for (int i = 0; i < m; i++) {
         if (client[i].id == id) {  
             found = 1;
-            printf("Sua thong tin cho khach co ID %d:\n", id);
-            printf("Nhap ten khach hang moi: ");
+            printf("Edit information for customer with  %d:\n", id);
+            printf("Enter new customer name: ");
             char Name[100];
             fgets(Name, 100, stdin);
             Name[strcspn(Name, "\n")] = '\0';
@@ -371,7 +371,7 @@ void updateClient(Client client[], int m) {
                 strcpy(client[i].clientname, Name);
             }
 
-            printf("Nhap so dien thoai moi: ");
+            printf("Enter new phone number: ");
             char phone[50];
             fgets(phone, 50, stdin);
             phone[strcspn(phone, "\n")] = '\0';
@@ -379,7 +379,7 @@ void updateClient(Client client[], int m) {
                 strcpy(client[i].phonenumber, phone);
             }
 
-            printf("Nhap ngay muon sach moi: ");
+            printf("Enter new book borrowing date: ");
             char datebook[50];
             fgets(datebook, 50, stdin);
             datebook[strcspn(datebook, "\n")] = '\0';
@@ -387,29 +387,29 @@ void updateClient(Client client[], int m) {
                 strcpy(client[i].date, datebook);
             }
 
-            printf("Cap nhat thong tin thanh cong!\n");
+            printf("Information updated successfully!!!\n");
             break;
         }
     }
     if (!found) {
-        printf("Khong tim thay khach hang voi ma ID %d.\n", id);
+        printf("No customer found with ID!!! %d.\n", id);
     }
 }
 
 void saveClientToFile(Client client[], int m) {
     FILE *ptr = fopen("ClientData.bin", "wb");
     if (ptr == NULL) {
-        printf("Khong mo duoc file\n");
+        printf("Cannot open file\n");
         return;
     }
     fwrite(client, sizeof(Client), m, ptr);
-    printf("Luu thong tin thanh cong\n");
+    printf("Information saved successfully\n");
     fclose(ptr);
 }
 void loadClientFromFile(Client client[], int *m) {
     FILE *ptr = fopen("ClientData.bin", "rb");
     if (ptr == NULL) {
-        printf("Khong mo duoc file\n");
+        printf("Cannot open file\n");
         return;
     }
 
@@ -420,13 +420,13 @@ void findclient(Client client[],int m)
  {
  	int client11;
     char search[1000];
-    printf("Nhap ten khach hang ban muon tim: ");
+    printf("Enter the name of the customer you want to find: ");
     scanf(" %[^\n]", search);
     strlwr(search);
     bool found = false;
 
     printf("|____________________________________________THONG TIN TIM DUOC________________________________________|\n");
-    printf("| %-2s | %-40s | %-20s | %-20s |\n", "ID", "Ten khach hang", "So dien thoai", "Ngay muon sach");
+    printf("| %-2s | %-40s | %-20s | %-20s |\n","ID", "Customer ame", "Phone Number", "Book loan date");
     printf("|____|__________________________________________|______________________|______________________|\n");
 
     for (int i = 0; i < m; i++)
@@ -443,7 +443,7 @@ void findclient(Client client[],int m)
 
     if (!found)
     {
-        printf("| Khong tim thay !                                                           |\n", search);
+        printf("|Not found !                                                           |\n", search);
     }
 
     printf("|___________________________________________________________________________________________________________|\n");
@@ -454,16 +454,16 @@ void addBook(Book book[],  int *n){
 	int namebook11=0;
 	getchar();
 	book[*n].id=*n+1;
-	printf("Moi ban nhap vao ten sach: \n");
+	printf("Please enter the book name: \n");
 	fgets(book[*n].bookName, 100, stdin);
 	book[*n].bookName[strcspn(book[*n].bookName, "\n")] = '\0';
 	if (strlen(book[*n].bookName)==0){
-		printf("Ten sach khong duoc bo trong!!!\n");
+		printf("Book title cannot be left blank!!!\n");
 		continue;
 	}
 	for (int i = 0; i < *n; i++) {
             if (strcmp(book[*n].bookName, book[i].bookName) == 0) {
-                printf("Ten sach da ton tai. Vui long nhap ten khac.\n");
+                printf("Book name already exists.Please enter another name!!!\n");
               	namebook11 = 1;
                 break;
             }
@@ -472,19 +472,19 @@ void addBook(Book book[],  int *n){
 		break;
 }
 	while(1){
-	printf("Moi ban nhap vao ten tac gia: \n");
+	printf("Please enter author name: \n");
 	fgets(book[*n].author, 50, stdin);
 	book[*n].author[strcspn(book[*n].author, "\n")] = '\0';
 	if (strlen(book[*n].author)==0){
-		printf("Ten tac gia khong duoc de trong!!!\n");
+		printf("Author name cannot be blank!!!\n");
 		continue;;
 	}
 	break;
 }
 	while(1){
-	printf("Moi ban nhap vao gia tien: \n");
+	printf("Please enter price: \n");
 	if(scanf("%lld", &book[*n].price)!=1||book[*n].price<=0){
-		printf("Gia tien phai la so nguyen duong!!!\n");
+		printf("Price must be a positive integer!!!\n");
 		while(getchar()!='\n');
 	}else{
 		getchar();
@@ -493,11 +493,11 @@ void addBook(Book book[],  int *n){
 	};
 	getchar();
 	while(1){
-	printf("Moi ban nhap vao the loai: \n");
+	printf("Please enter category: \n");
 	fgets(book[*n].category, 50, stdin);
 	book[*n].category[strcspn(book[*n].category, "\n")] = '\0';
 	if(strlen(book[*n].category)==0){
-		printf("The loai khong duoc de trong!!!\n");
+		printf("Category cannot be empty!!!\n");
 		continue;
 	}
 	break;
@@ -507,7 +507,7 @@ void addBook(Book book[],  int *n){
 }
 void printBook(Book book[], int n) {
 	printf("\n__________________________________________________________________________________________________\n");
-    printf("| %-2s | %-40s | %-20s | %-10s | %-10s |\n", "ID", "Ten sach", "Tac gia", "Gia tien", "The loai");
+    printf("| %-2s | %-40s | %-20s | %-10s | %-10s |\n", "ID", "Book ", "Author", "Value", "CategoryCategory");
     printf("|____|__________________________________________|______________________|____________|____________|\n");
     for (int i = 0; i < n; i++) {
         printf("| %-2d | %-40s | %-20s | %-10lld | %-10s |\n", book[i].id, book[i].bookName, book[i].author, book[i].price, book[i].category);
@@ -528,7 +528,7 @@ void saveBooksToFile(Book book[], int n) {
 void loadBooksFromFile(Book books[], int *n) {
     FILE *ptr = fopen("bookData.bin", "rb");
     if (ptr == NULL) {
-        printf("Khong mo duoc file\n");
+        printf("Cannot  file\n");
         return;
     }
 
@@ -538,9 +538,9 @@ void loadBooksFromFile(Book books[], int *n) {
 void updateBook(Book book[], int n) {
     int id;
 	while(1){
-    printf("Nhap id sach muon cap nhat: ");
+    printf("Enter the book id you want to update: ");
     if( scanf("%d", &id)){
-    printf("Khong tim thay Id!!!Vui long nhap lai!!!\n");
+    printf("ID not found!Please re-enter!!!\n");
     while(getchar()!='\n');
 	}else{
 	getchar();	
@@ -551,8 +551,8 @@ void updateBook(Book book[], int n) {
     for (int i = 0; i < n; i++) {
         if (book[i].id == id) {  
             found = 1;
-            printf("Sua thong tin cho sach co ID %d:\n", id);
-            printf("Nhap ten sach moi: ");
+            printf("Edit book information with  %d:\n", id);
+            printf("Enter new book name: ");
             char Name[100];
             fgets(Name, 100, stdin);
             Name[strcspn(Name, "\n")] = '\0';
@@ -584,19 +584,19 @@ void updateBook(Book book[], int n) {
                 strcpy(book[i].category, Category);
             }
 
-            printf("Cap nhat thong tin thanh cong!\n");
+            printf("Information updated successfully!\n");
             break;
         }
     }
     if (!found) {
-        printf("Khong tim thay sach voi ma ID %d.\n", id);
+        printf("Book with ID %d not found.\n", id);
     }
 }
 void deleteBook(Book book[],  int *n){
 	int position;
-	printf("Moi ban nhap vao id sach muon xoa:");
+	printf("Please enter the book ID you want to delete:");
 	if (scanf("%d", &position)!=1){
-		printf("khong tim thay sach de xoa!!!!\n");
+		printf("No books found to delete!!!!\n");
 		fflush(stdin);
 		return;
 	};
@@ -609,9 +609,9 @@ void deleteBook(Book book[],  int *n){
 	} 
 
 	if(findIndex==-1){
-		printf("Khong tim thay sach de xoa\n");
+		printf("No books found to delete!!!\n");
 	}else{
-		printf("Xac nhan xoa sach co id %d? (y/n): ",position);
+		printf("Confirm delete book with id %d? (y/n): ",position);
 		getchar();
 		char xn;
 		scanf("%s",&xn);
@@ -620,9 +620,9 @@ void deleteBook(Book book[],  int *n){
 			book[i]=book[i+1];
 		}
 		(*n)--;
-		printf("Da xoa sach thanh cong!!!\n");
+		printf("Book deleted successfully!!!\n");
 	}else{
-		printf("Xoa sach khong thanh cong!!!\n");
+		printf("Book deletion failed!!!\n");
 	}
 	}
 }
@@ -637,19 +637,19 @@ void ValueBook(Book book[], int n, int value) {
             }
         }
     }
-    printf("Da sap xep sach theo gia.\n");
+    printf("Books sorted by price.\n");
 }
 void findBook(Book book[], int n)
  {
  	int book11;
     char search[1000];
-    printf("Nhap ten sach ma ban muon tim: ");
+    printf("Enter the name of the book you want to find: ");
     scanf(" %[^\n]", search);
     strlwr(search);
     bool found = false;
 
     printf("|____________________________________________THONG TIN SACH TIM DUOC________________________________________|\n");
-    printf("| %-8s | %-30s | %-20s | %-20s | %-15s |\n", "Ma sach", "Ten sach", "Gia tien", "Tac gia", "The loai");
+    printf("| %-8s | %-30s | %-20s | %-20s | %-15s |\n", "ID", "Book ", "Author", "Value", "CategoryCategory");
     printf("|__________|________________________________|______________________|______________________|_________________|\n");
 
     for (int i = 0; i < n; i++)
@@ -666,7 +666,7 @@ void findBook(Book book[], int n)
 
     if (!found)
     {
-        printf("| Khong tim thay sach!                                                           |\n", search);
+        printf("| Book not found!!!                                                           |\n", search);
     }
 
     printf("|___________________________________________________________________________________________________________|\n");
