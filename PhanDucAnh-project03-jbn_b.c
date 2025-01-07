@@ -490,7 +490,6 @@ void addBook(Book book[],  int *n){
 		break;
 	}
 	};
-	getchar();
 	while(1){
 	printf("Please enter category: \n");
 	fgets(book[*n].category, 50, stdin);
